@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package foo;
+
+service FooService {
+  rpc getFoo(FooRequest) returns (FooResponse);
+}
+
+message FooRequest {
+}
+
+message FooResponse {
+  string msg = 1;
+};

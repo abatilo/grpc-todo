@@ -1,0 +1,14 @@
+FROM golang:1.13
+
+ARG PROTOC_VERSION=3.11.4
+
+RUN apt-get update && apt-get install -y --no-install-recommends unzip=* \
+      && apt-get clean \
+      && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /tmp
+RUN curl -Lo /tmp/protoc.zip "https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOC_VERSION}/protoc-${PROTOC_VERSION}-linux-x86_64.zip" \
+      && unzip /tmp/protoc.zip \
+      && mv /tmp/bin/* /usr/local/bin/ \
+      && mv /tmp/include/* /usr/local/include/ \
+      && rm -rf /tmp/*
