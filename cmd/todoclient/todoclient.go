@@ -29,7 +29,7 @@ func main() {
 	defer conn.Close()
 	c := todo.NewTodoServiceClient(conn)
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*2)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*60)
 
 	{
 		req := &todo.ListTodoRequest{}

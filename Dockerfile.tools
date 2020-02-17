@@ -1,4 +1,9 @@
-FROM golang:1.13
+FROM golang:1.12
+
+ENV GO111MODULE=on
+ENV CGO_ENABLED=0
+ENV GOOS=linux
+ENV GOARCH=amd64
 
 ARG PROTOC_VERSION=3.11.4
 
@@ -12,3 +17,10 @@ RUN curl -Lo /tmp/protoc.zip "https://github.com/protocolbuffers/protobuf/releas
       && mv /tmp/bin/* /usr/local/bin/ \
       && mv /tmp/include/* /usr/local/include/ \
       && rm -rf /tmp/*
+
+# Install dependencies
+WORKDIR /go/src/github.com/abatilo/grpc-todo
+COPY ./go.mod ./go.sum ./
+COPY ./hack ./hack
+COPY ./tools ./tools
+RUN /go/src/github.com/abatilo/grpc-todo/hack/install_tools.sh

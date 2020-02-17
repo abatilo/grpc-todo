@@ -11,15 +11,15 @@ COPY ./go.mod ./go.sum ./
 RUN go mod download
 
 # Build artifacts
-WORKDIR /go/src/github.com/abatilo/todo
-
 COPY ./hack ./hack
 COPY ./tools ./tools
-RUN /go/src/github.com/abatilo/todo/hack/install_tools.sh
+RUN /go/src/github.com/abatilo/grpc-todo/hack/install_tools.sh
 
 COPY ./cmd ./cmd
 COPY ./pkg ./pkg
-RUN go build -ldflags="-w -s" -o /go/bin/todo cmd/todo.go
+COPY ./mock ./mock
+RUN go test ./... \
+      && go build -ldflags="-w -s" -o /go/bin/todo cmd/todo.go
 
 FROM scratch
 # SSL Certs
