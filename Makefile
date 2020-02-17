@@ -1,5 +1,6 @@
 SHELL := /bin/bash
 TOOLS_CONTAINER = abatilo/grpc-todo-tools
+TODO_CONTAINER = abatilo/grpc-todo
 
 .PHONY: help
 help: ## View help information
@@ -28,3 +29,15 @@ mock: clean tools
 .PHONY: generate
 generate: proto mock ## Generate protos and mocks
 	sudo chown -R $(shell whoami) .
+
+.PHONY: build
+build:
+	docker build -t $(TODO_CONTAINER) .
+
+.PHONY: run_service
+run_service: build ## Run the application in service mode
+	docker run -it -p8080:8080 -p8081:8081 $(TODO_CONTAINER) service
+
+.PHONY: run_client
+run_client: build ## Run the application in client mode
+	docker run --net=host -it $(TODO_CONTAINER) client

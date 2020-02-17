@@ -22,14 +22,14 @@ var (
 )
 
 func main() {
-	conn, err := grpc.Dial("localhost:8080", grpc.WithInsecure())
+	conn, err := grpc.Dial("0.0.0.0:8080", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("could not connect: %v", err)
 	}
 	defer conn.Close()
 	c := todo.NewTodoServiceClient(conn)
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*60)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*2)
 
 	{
 		req := &todo.ListTodoRequest{}

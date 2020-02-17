@@ -48,5 +48,4 @@ COPY --from=backend /go/bin/grpc-health-probe /go/bin/grpc-health-probe
 # Copy our static executable
 COPY --from=backend /go/bin/todo /go/bin/todo
 
-ENTRYPOINT ["/go/bin/grpc-health-probe", "-addr=:6666"]
-# ENTRYPOINT ["/go/bin/todo"]
+ENTRYPOINT ["/go/bin/todo"]
