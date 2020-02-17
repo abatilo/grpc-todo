@@ -9,6 +9,7 @@ require (
 	github.com/cncf/udpa/go v0.0.0-20200124205748-db4b343e48c1 // indirect
 	github.com/envoyproxy/go-control-plane v0.9.4 // indirect
 	github.com/golang/protobuf v1.3.3
+	github.com/grpc-ecosystem/grpc-health-probe v0.3.1 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/kr/pretty v0.2.0 // indirect
 	github.com/kr/text v0.2.0 // indirect

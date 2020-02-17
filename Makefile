@@ -1,6 +1,4 @@
 SHELL := /bin/bash
-
-GO_VERSION = 1.12
 PROTO_CONTAINER = abatilo/protobuilder
 
 .PHONY: help

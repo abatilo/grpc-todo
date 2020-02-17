@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/abatilo/grpc-todo/cmd/fooclient"
-	"github.com/abatilo/grpc-todo/cmd/fooservice"
+	"github.com/abatilo/grpc-todo/cmd/todoclient"
+	"github.com/abatilo/grpc-todo/cmd/todoservice"
 	"github.com/spf13/cobra"
 )
 
@@ -14,7 +14,7 @@ func main() {
 		}
 	)
 
-	rootCmd.AddCommand(fooservice.Cmd)
-	rootCmd.AddCommand(fooclient.Cmd)
+	rootCmd.AddCommand(todoservice.Cmd)
+	rootCmd.AddCommand(todoclient.Cmd)
 	rootCmd.Execute()
 }
