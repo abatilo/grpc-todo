@@ -27,6 +27,6 @@ steps:
       - RELEASE_NAME=grpc-todo
       - KUBE_CONTEXT=chopper
       - NAMESPACE=applications
-      - VALUESFILE_prod='helm/grpc-todo/values-grpc.yaml'
+      - VALUESFILE_prod='helm/grpc-todo/values.yaml'
       - VALUE_image_repository='r.cfcr.io/abatilo/abatilo/grpc-todo'
       - VALUE_image_tag='dev-${{CF_SHORT_REVISION}}'

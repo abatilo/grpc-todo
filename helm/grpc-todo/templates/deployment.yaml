@@ -22,15 +22,19 @@ spec:
     {{- end }}
       containers:
         - name: {{ .Chart.Name }}
+          command:
+            - /go/bin/todo
+          args:
+            - service
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
               protocol: TCP
           readinessProbe:
             exec:
-              command: ["/root/grpc_health_probe", "-addr=:6666"]
+              command: ["/go/bin/grpc-health-probe", "-addr=:8081"]
             initialDelaySeconds: 1
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

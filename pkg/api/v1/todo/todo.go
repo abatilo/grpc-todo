@@ -4,6 +4,7 @@ package todo
 
 import (
 	context "context"
+	fmt "fmt"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -21,6 +22,7 @@ var (
 
 // AddTodo add a todo to the list
 func (s *Server) AddTodo(ctx context.Context, r *AddTodoRequest) (*AddTodoResponse, error) {
+	fmt.Println("AddTodo")
 	s.todos = append(s.todos, &Todo{Description: r.GetDescription()})
 	resp := &AddTodoResponse{TodoId: uint32(len(s.todos))}
 	return resp, nil
@@ -28,6 +30,7 @@ func (s *Server) AddTodo(ctx context.Context, r *AddTodoRequest) (*AddTodoRespon
 
 // GetTodo gets a todo
 func (s *Server) GetTodo(ctx context.Context, r *GetTodoRequest) (*GetTodoResponse, error) {
+	fmt.Println("GetTodo")
 	if uint32(len(s.todos)) < r.GetTodoId() {
 		return nil, ErrTodoNotFound
 	}
@@ -38,12 +41,14 @@ func (s *Server) GetTodo(ctx context.Context, r *GetTodoRequest) (*GetTodoRespon
 
 // ListTodos lists every todo
 func (s *Server) ListTodos(ctx context.Context, r *ListTodoRequest) (*ListTodoResponse, error) {
+	fmt.Println("ListTodos")
 	resp := &ListTodoResponse{Todos: s.todos}
 	return resp, nil
 }
 
 // UpdateTodo will update a todo
 func (s *Server) UpdateTodo(ctx context.Context, r *UpdateTodoRequest) (*UpdateTodoResponse, error) {
+	fmt.Println("UpdateTodo")
 	if uint32(len(s.todos)) < r.GetTodoId() {
 		return nil, ErrTodoNotFound
 	}

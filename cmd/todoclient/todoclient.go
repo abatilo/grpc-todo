@@ -2,12 +2,14 @@ package todoclient
 
 import (
 	"context"
+	"crypto/tls"
 	"log"
 	"time"
 
 	"github.com/abatilo/grpc-todo/pkg/api/v1/todo"
 	"github.com/spf13/cobra"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 )
 
 var (
@@ -22,7 +24,10 @@ var (
 )
 
 func main() {
-	conn, err := grpc.Dial("0.0.0.0:8080", grpc.WithInsecure())
+	config := &tls.Config{}
+	conn, err := grpc.Dial("todo.aaronbatilo.dev:443", grpc.WithTransportCredentials(credentials.NewTLS(config)))
+
+	// conn, err := grpc.Dial("todo.aaronbatilo.dev:443")
 	if err != nil {
 		log.Fatalf("could not connect: %v", err)
 	}
