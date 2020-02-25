@@ -1,0 +1,32 @@
+version: '1.0'
+stages:
+  - build
+  - release
+steps:
+  clone:
+    stage: build
+    title: Clone
+    type: git-clone
+    arguments:
+      repo: 'abatilo/grpc-todo'
+      git: github
+      revision: 'master'
+  build:
+    stage: build
+    title: Build
+    type: build
+    image_name: 'abatilo/grpc-todo'
+    working_directory: 'grpc-todo'
+    tag: dev-${{CF_SHORT_REVISION}}
+  install:
+    stage: release
+    image: 'codefresh/cfstep-helm:2.9.1'
+    title: Install
+    environment:
+      - CHART_REF=helm/grpc-todo
+      - RELEASE_NAME=grpc-todo
+      - KUBE_CONTEXT=chopper
+      - NAMESPACE=applications
+      - VALUESFILE_prod='helm/grpc-todo/values-grpc.yaml'
+      - VALUE_image_repository='r.cfcr.io/abatilo/abatilo/grpc-todo'
+      - VALUE_image_tag='dev-${{CF_SHORT_REVISION}}'
